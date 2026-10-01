@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+
+{% load static %}
+
+  {% block body %}
+    <section class="welcome-section">
+      <div class="welcome-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> PAYMENT WORKSPACE</p>
+        <h1>Make a payment<br>request.</h1>
+        <p class="welcome-description">Send an STK Push prompt to a customer's phone, or check your sandbox connection.</p>
+        <a class="button button-primary" href="{% url 'mpesa:stk' %}">Start an STK Push <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="welcome-aside" aria-label="Payment process overview">
+        <div class="aside-heading"><span class="aside-icon" aria-hidden="true">01</span><span>PAYMENT FLOW</span></div>
+        <ol class="flow-list">
+          <li><span class="flow-number">01</span><span><strong>Enter details</strong><small>Phone number and amount</small></span></li>
+          <li><span class="flow-number">02</span><span><strong>Send request</strong><small>A prompt goes to the phone</small></span></li>
+          <li><span class="flow-number">03</span><span><strong>Customer approves</strong><small>They confirm with their PIN</small></span></li>
+        </ol>
+        <p class="flow-footnote">This workspace uses the Safaricom sandbox.</p>
+      </div>
+    </section>
+    <section class="quick-section" aria-labelledby="quick-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow">QUICK ACCESS</p><h2 id="quick-heading">Workspace tools</h2></div>
+        <span class="section-note">Choose where to go next</span>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-link" href="{% url 'mpesa:stk' %}">
+          <span class="tool-index">01 / PAYMENTS</span>
+          <span class="tool-title">STK Push <span aria-hidden="true">&rarr;</span></span>
+          <span class="tool-description">Request a payment directly from a customer's phone.</span>
+        </a>
+        <a class="tool-link" href="{% url 'mpesa:token' %}">
+          <span class="tool-index">02 / DEVELOPER</span>
+          <span class="tool-title">Access token <span aria-hidden="true">&rarr;</span></span>
+          <span class="tool-description">Retrieve the current API token for your sandbox session.</span>
+        </a>
+      </div>
+    </section>
+
+  {% endblock %}

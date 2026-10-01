@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+
+{% load static %}
+
+  {% block body %}
+    <section class="page-heading">
+      <p class="eyebrow"><span class="eyebrow-line"></span> DEVELOPER / CREDENTIALS</p>
+      <h1>Sandbox access token</h1>
+      <p>Retrieve the API access token issued for your current sandbox session.</p>
+    </section>
+    <section class="token-panel" aria-labelledby="token-heading">
+      <div class="panel-heading">
+        <div><p class="eyebrow">OAUTH 2.0</p><h2 id="token-heading">Current token</h2></div>
+        <span class="secure-label"><span aria-hidden="true">&#9679;</span> Sandbox</span>
+      </div>
+      {% if token %}
+        <div class="token-value" id="token-value">{{ token }}</div>
+        <button class="button button-secondary" type="button" id="copy-token" data-token="{{ token }}">Copy token</button>
+      {% else %}
+        <p class="empty-state">No token is available right now. Try refreshing this page.</p>
+      {% endif %}
+      <p class="security-note"><strong>Keep this token private.</strong> Treat it like a password and do not share it or commit it to source control.</p>
+    </section>
+    <script>
+      const copyButton = document.getElementById('copy-token');
+      if (copyButton) {
+        copyButton.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(copyButton.dataset.token);
+            copyButton.textContent = 'Copied';
+          } catch {
+            copyButton.textContent = 'Copy unavailable';
+          }
+        });
+      }
+    </script>
+  {% endblock %}

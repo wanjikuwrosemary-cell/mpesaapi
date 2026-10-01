@@ -1,0 +1,41 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MPESA</title>
+      <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+      <title>{% block title %}M-PESA Console{% endblock %}</title>
+      <link rel="stylesheet" href="{% static 'style.css' %}">
+  </head>
+  <body>
+
+
+
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="{% url 'mpesa:home' %}" aria-label="M-PESA Console home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-name">M-PESA <span>CONSOLE</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-link{% if navbar == 'home' %} is-active{% endif %}" {% if navbar == 'home' %}aria-current="page"{% endif %} href="{% url 'mpesa:home' %}">Overview</a>
+      <a class="nav-link{% if navbar == 'stk' %} is-active{% endif %}" {% if navbar == 'stk' %}aria-current="page"{% endif %} href="{% url 'mpesa:stk' %}">STK Push</a>
+      <a class="nav-link{% if navbar == 'token' %} is-active{% endif %}" {% if navbar == 'token' %}aria-current="page"{% endif %} href="{% url 'mpesa:token' %}">Access token</a>
+    </nav>
+    <span class="environment-tag"><span class="status-dot" aria-hidden="true"></span> Sandbox</span>
+  </div>
+</header>
+<main class="page-shell">
+  {% block body %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <span>M-PESA integration workspace</span>
+  <span>Sandbox environment</span>
+</footer>
+  </body>
+</html>

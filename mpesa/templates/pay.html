@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+  {% block body %}
+        <section class="page-heading">
+            <p class="eyebrow"><span class="eyebrow-line"></span> PAYMENTS / STK PUSH</p>
+            <h1>Send a payment request</h1>
+            <p>Enter the customer's details. They will receive a prompt on their phone to approve the payment.</p>
+        </section>
+        <div class="payment-layout">
+            <section class="form-panel" aria-labelledby="payment-form-heading">
+                <div class="panel-heading">
+                    <div><p class="eyebrow">NEW REQUEST</p><h2 id="payment-form-heading">Payment details</h2></div>
+                    <span class="secure-label"><span aria-hidden="true">&#9679;</span> Sandbox</span>
+                </div>
+                {% if messages %}
+                    <div class="message-list" aria-live="polite">
+                        {% for message in messages %}<p class="notice notice-{{ message.tags }}">{{ message }}</p>{% endfor %}
+                    </div>
+                {% endif %}
+                <form method="POST" action="{% url 'mpesa:pay' %}" class="payment-form">
+                    {% csrf_token %}
+                    <div class="field-group">
+                        <label for="phone">Customer phone number</label>
+                        <span class="field-hint">Use the number registered with M-PESA.</span>
+                        <input id="phone" type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="254712345678" pattern="254[0-9]{9}" maxlength="12" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="amount">Amount</label>
+                        <span class="field-hint">Enter a whole amount in Kenyan shillings.</span>
+                        <div class="amount-input"><span aria-hidden="true">KSh</span><input id="amount" type="number" name="amount" inputmode="numeric" min="1" step="1" placeholder="0" required></div>
+                    </div>
+                    <button class="button button-primary submit-button" type="submit">Send STK Push <span aria-hidden="true">&rarr;</span></button>
+                    <p class="form-footnote">The customer must approve the prompt on their phone to complete payment.</p>
+                </form>
+            </section>
+            <aside class="guidance-panel">
+                <p class="eyebrow">BEFORE YOU SEND</p>
+                <h2>A quick check</h2>
+                <ul class="check-list">
+                    <li><span class="check-mark" aria-hidden="true">&#10003;</span><span>Confirm the phone number starts with <strong>254</strong> and has 12 digits.</span></li>
+                    <li><span class="check-mark" aria-hidden="true">&#10003;</span><span>Enter the payment amount in whole Kenyan shillings.</span></li>
+                    <li><span class="check-mark" aria-hidden="true">&#10003;</span><span>Ask the customer to approve the prompt using their M-PESA PIN.</span></li>
+                </ul>
+                <div class="sandbox-note"><span class="status-dot" aria-hidden="true"></span><span><strong>Sandbox mode</strong><br>Requests use the Safaricom test environment.</span></div>
+            </aside>
+        </div>
+    {% endblock %}
